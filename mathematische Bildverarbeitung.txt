@@ -1,0 +1,37 @@
+# mathematische Bildverarbeitung
+
+Projekt Code als Text-File aus dem PDF **ohne funktionierenden** Zusammenhang.
+
+```python
+
+### Listing 1 : Deﬁnition der BilinearfunktionListing 2: Deﬁnition Paramter
+eps = 1e-6
+dt = 2.5e-1
+
+a = BilinearForm (V, symmetric=False)
+a += Variation((eps/2*grad(u)*grad(u) 
+               +(u**2*(1-u*u)**2)
+               + 0.5/dt*(u-gfuold)**2)*dx)
+
+### Listing 2: Deﬁnition Paramter
+# parameter initialization 
+t = Parameter(0)
+# set value
+t.Set(t.Get()+dt.Get())
+# get value
+print(t.Get()
+
+### Listing 3: Laden der Bilddaten
+import pickle
+with open('img.pkl','rb') as fp:
+    img = pickle.load(fp)
+plt.imshow(img,interpolation='none', cmap='gray')
+
+### Listing 4: DeﬁnitionMesh und VoxelCoeﬃcient Funktion für die Bilddaten.
+mesh = MakeStructured2DMesh(nx=int((img.shape[0]-1)/1),
+                            ny=int((img.shape[1]-1)/1),
+                            quads=False)
+cfImg = VoxelCoefficient((0,0),(1,1),
+                         img[np.arange(img.shape[0]-1,-1,-1)])
+Draw(cfImg,mesh,'cfImg')
+```
